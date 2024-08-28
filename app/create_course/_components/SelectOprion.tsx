@@ -16,7 +16,7 @@ function SelectOprion() {
                 <div>
                     <label htmlFor="">Nivel de Dificultad</label>
                     <Select>
-                        <SelectTrigger className="">
+                        <SelectTrigger className="swsw">
                             <SelectValue placeholder="Selecciona" />
                         </SelectTrigger>
                         <SelectContent>
