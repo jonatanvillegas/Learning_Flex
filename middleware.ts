@@ -1,12 +1,33 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+import { NextResponse } from 'next/server';
 
-const isProtectedRoute = createRouteMatcher(
-    ['/dashboard(.*)', '/forum(.*)']
-)
+const isDashboardRoute = createRouteMatcher(['/dashboard(.*)']);
+const isAdminRoute = createRouteMatcher(['/Admin(.*)']);
 
-export default clerkMiddleware((auth, req) => {
-  if (isProtectedRoute(req)) auth().protect()
-})
+const idAmdin = 'user_2lGliP3GlCYNwzOASw5F4L46H8J'
+
+export default clerkMiddleware((auth, req) => { 
+
+  const { userId } = auth();
+
+  // Restringir acceso al dashboard solo para usuarios diferentes al admin
+  if (isDashboardRoute(req)) {
+    if (userId !== idAmdin) {
+      return;
+    } else {
+      return NextResponse.redirect('http://localhost:3000/Admin'); // Redirige si el admin intenta acceder al dashboard
+    }
+  }
+
+  // Restringir acceso a la vista Admin solo para el admin
+  if (isAdminRoute(req)) {
+    if (userId === idAmdin) {
+      return;
+    } else {
+      return NextResponse.redirect('http://localhost:3000/dashboard'); // Redirige si un usuario no admin intenta acceder a Admin
+    }
+  }
+});
 
 export const config = {
   matcher: [
