@@ -12,7 +12,7 @@ function Hero() {
                 <div className="mx-auto max-w-xl text-center">
                     <h1 className="text-3xl font-extrabold sm:text-5xl">
                         Ai Generadora de 
-                        <strong className="font-extrabold text-primary sm:block"> Cursos  </strong>
+                        <strong className="font-extrabold text-primary sm:block"> Cursos con Ia </strong>
                     </h1>
 
                     <p className="mt-4 sm:text-xl/relaxed">
