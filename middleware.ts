@@ -10,6 +10,14 @@ export default clerkMiddleware((auth, req) => {
 
   const { userId } = auth();
 
+  // Restringir acceso a la vista Admin solo para el admin
+  if (isAdminRoute(req)) {
+    if (userId === idAmdin) {
+      return;
+    } else {
+      return NextResponse.redirect('http://localhost:3000/dashboard'); // Redirige si un usuario no admin intenta acceder a Admin
+    } 
+  }
   // Restringir acceso al dashboard solo para usuarios diferentes al admin
   if (isDashboardRoute(req)) {
     if (userId !== idAmdin) {
@@ -19,14 +27,6 @@ export default clerkMiddleware((auth, req) => {
     }
   }
 
-  // Restringir acceso a la vista Admin solo para el admin
-  if (isAdminRoute(req)) {
-    if (userId === idAmdin) {
-      return;
-    } else {
-      return NextResponse.redirect('http://localhost:3000/dashboard'); // Redirige si un usuario no admin intenta acceder a Admin
-    }
-  }
 });
 
 export const config = {

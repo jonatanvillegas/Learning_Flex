@@ -23,6 +23,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Badge } from "@/components/ui/badge"
+import Header from "../dashboard/_components/Header"
 
 export default function Component() {
 
@@ -68,6 +69,7 @@ export default function Component() {
  
   return (
     <div className="container mx-auto p-4">
+      <Header/>
       <h1 className="text-2xl font-bold mb-4">Panel Administrativo</h1>
       
       <div className="grid gap-4 md:grid-cols-3 mb-8">
