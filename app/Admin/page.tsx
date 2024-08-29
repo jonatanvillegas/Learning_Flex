@@ -40,7 +40,7 @@ export default function Component() {
   const basicUsers = users.filter(user => user.status === "Basic").length
 
   const barChartData = [
-    { name: "Jan", users: 400 },
+    { name: "Jan", users: 500 },
     { name: "Feb", users: 300 },
     { name: "Mar", users: 500 },
     { name: "Apr", users: 280 },
