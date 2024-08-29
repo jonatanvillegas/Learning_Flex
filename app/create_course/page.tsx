@@ -8,10 +8,20 @@ import { Button } from '@/components/ui/button';
 import SelectCategory from './_components/SelectCategory';
 import Description from './_components/Description';
 import SelectOprion from './_components/SelectOprion';
+import { useUserInput } from '../_store/Zustand';
 
 function page() {
 
   const [ActivarItem, setActivarItem] = useState(0);
+  const {userCourseInput} = useUserInput()
+
+  const ChekedStatus = () => {
+    if (Object.keys(userCourseInput).length == 0) true;
+    if (ActivarItem == 0 && (userCourseInput?.categoria == "categoria"||userCourseInput?.categoria == undefined )){
+      return true
+    }
+  }
+  
   return (
     <div>
       {/*Titulo e iconos  */}
@@ -46,7 +56,9 @@ function page() {
 
       <div className='flex justify-between mt-10 mx-4'>
         <Button disabled={ActivarItem == 0} variant='outline' onClick={() => setActivarItem(ActivarItem - 1)}>Regresae</Button>
-        {ActivarItem < 2 && (<Button
+        {ActivarItem < 2 && (
+          <Button
+          disabled={ChekedStatus()}
           onClick={() => setActivarItem(ActivarItem + 1)}
         >
           Siguiente
