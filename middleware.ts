@@ -15,7 +15,7 @@ export default clerkMiddleware((auth, req) => {
     if (userId === idAmdin) {
       return;
     } else {
-      return NextResponse.redirect('http://localhost:3000/dashboard'); // Redirige si un usuario no admin intenta acceder a Admin
+      return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/dashboard`); // Redirige si un usuario no admin intenta acceder a Admin
     } 
   }
   // Restringir acceso al dashboard solo para usuarios diferentes al admin
@@ -23,7 +23,7 @@ export default clerkMiddleware((auth, req) => {
     if (userId !== idAmdin) {
       return;
     } else {
-      return NextResponse.redirect('http://localhost:3000/Admin'); // Redirige si el admin intenta acceder al dashboard
+      return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/Admin`); // Redirige si el admin intenta acceder al dashboard
     }
   }
 
