@@ -4,7 +4,14 @@ import { redirect } from 'next/navigation'
 import React from 'react'
 
 function Hero() {
-  const {user} = useUser()
+    const { user } = useUser();
+    // Redirigir a diferentes vistas del dashboard si el usuario está autenticado
+    if (user?.id) {
+      // Verifica si ya estás en la ruta de dashboard para evitar redirecciones en bucle
+      if (window.location.pathname !== "/dashboard") {
+        redirect("/dashboard");
+      }
+    }
     
     return (
         <section className="bg-gray">
