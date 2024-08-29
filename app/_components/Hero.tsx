@@ -1,6 +1,13 @@
+'use client'
+import { useUser } from '@clerk/nextjs'
+import { redirect } from 'next/navigation'
 import React from 'react'
 
 function Hero() {
+  const {user} = useUser()
+    if (user?.id) {
+        redirect("/dashboard")
+    }
     return (
         <section className="bg-gray">
             <div className="mx-auto max-w-screen-md px-4 py-32 lg:flex lg:h-full lg:items-center">
@@ -17,7 +24,7 @@ function Hero() {
                     <div className="mt-8 flex flex-wrap justify-center gap-4">
                         <a
                             className="block w-full rounded bg-primary px-12 py-3 text-sm font-medium text-white shadow hover:bg-blue-950 focus:outline-none focus:ring active:bg-sky-900 sm:w-auto"
-                            href="/dashboard"
+                            href="/sign-in"
                         >
                             Get Started
                         </a>
