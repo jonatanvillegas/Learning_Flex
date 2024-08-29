@@ -5,9 +5,7 @@ import React from 'react'
 
 function Hero() {
   const {user} = useUser()
-    if (user?.id) {
-        redirect("/dashboard")
-    }
+    
     return (
         <section className="bg-gray">
             <div className="mx-auto max-w-screen-md px-4 py-32 lg:flex lg:h-full lg:items-center">
