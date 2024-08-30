@@ -9,7 +9,6 @@ import SelectCategory from './_components/SelectCategory';
 import Description from './_components/Description';
 import SelectOprion from './_components/SelectOprion';
 import { useUserInput } from '../_store/Zustand';
-import axios from 'axios';
 import LoadingDialog from './LoadingDialog';
 
 function page() {
@@ -44,7 +43,7 @@ function page() {
     +'Dificultad:'+ userCourseInput?.Dificultad+ 'Duracion:'+userCourseInput?.Duracion + 'numCapitulos:'+
     userCourseInput?.numCapitulos
 
-    const respuesta = await fetch('http://localhost:3000/api/crear-curso', {
+    const respuesta = await fetch('/api/crear-curso', {
       method: 'POST', // Método de la solicitud
       headers: {
         'Content-Type': 'application/json', // Tipo de contenido que se envía
