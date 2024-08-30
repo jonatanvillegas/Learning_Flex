@@ -5,7 +5,7 @@ import { createUser } from '@/lib/users'
 import { User } from '@prisma/client'
 
 export async function POST(req: Request) {
-  const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET
+  const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET
 
   if (!WEBHOOK_SECRET) {
     throw new Error(
