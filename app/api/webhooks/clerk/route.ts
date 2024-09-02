@@ -30,8 +30,6 @@ export async function POST(req: Request): Promise<Response> {
   const payload = await req.json();
   const body = JSON.stringify(payload);
 
-  // Agregar acolchado al cuerpo
-  const paddedBody = addPadding(body);
 
   // Crear una nueva instancia de Svix con tu secreto.
   const wh = new Webhook(WEBHOOK_SECRET);
@@ -40,16 +38,16 @@ export async function POST(req: Request): Promise<Response> {
 
   // Verificar la carga útil con los headers
   try {
-    evt = wh.verify(paddedBody, {
+    evt = wh.verify(body, {
       'svix-id': svix_id,
       'svix-timestamp': svix_timestamp,
-      'svix-signature': svix_signature
-    }) as WebhookEvent;
+      'svix-signature': svix_signature,
+    }) as WebhookEvent
   } catch (err) {
-    console.error('Error verificando webhook:', err);
-    return new Response('Error occurred', {
-      status: 400
-    });
+    console.error('Error verifying webhook:', err)
+    return new Response('Error occured', {
+      status: 400,
+    })
   }
 
   const eventType = evt.type;
@@ -78,14 +76,4 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   return new Response('el proceso ha finalizado', { status: 200 });
-}
-
-function addPadding(encodedString: string): string {
-  const length = encodedString.length;
-  const remainder = length % 4;
-  if (remainder !== 0) {
-    const padding = '='.repeat(4 - remainder);
-    return encodedString + padding;
-  }
-  return encodedString;
 }
