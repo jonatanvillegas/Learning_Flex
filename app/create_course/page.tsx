@@ -9,25 +9,64 @@ import SelectCategory from './_components/SelectCategory';
 import Description from './_components/Description';
 import SelectOprion from './_components/SelectOprion';
 import { useUserInput } from '../_store/Zustand';
+import LoadingDialog from './LoadingDialog';
 
 function page() {
 
+  const [loading,setLoading]= useState(false)
   const [ActivarItem, setActivarItem] = useState(0);
   const {userCourseInput} = useUserInput()
 
   const ChekedStatus = () => {
     if (Object.keys(userCourseInput).length == 0) true;
+
     if (ActivarItem == 0 && (userCourseInput?.categoria == "categoria"||userCourseInput?.categoria == undefined )){
       return true
+    }
+    if (ActivarItem == 1 && ( userCourseInput?.Titulo == undefined || userCourseInput?.Titulo.length == 0 )) {
+      return true 
+    }
+    if (ActivarItem == 2 && 
+      (userCourseInput?.Dificultad == undefined || 
+       userCourseInput?.Duracion == undefined ||
+      userCourseInput?.AgregarVideo == undefined ||
+      userCourseInput?.numCapitulos == undefined
+      )) {
+      return true
+    }
+    return false
+  }
+  
+  const handlerGenerarCurso = async () => {
+    setLoading(true)
+    const prompt = 'genera el curso categoria:'+userCourseInput?.categoria+'Titulo:'+userCourseInput?.Titulo
+    +'Dificultad:'+ userCourseInput?.Dificultad+ 'Duracion:'+userCourseInput?.Duracion + 'numCapitulos:'+
+    userCourseInput?.numCapitulos
+
+    const respuesta = await fetch('/api/crear-curso', {
+      method: 'POST', // Método de la solicitud
+      headers: {
+        'Content-Type': 'application/json', // Tipo de contenido que se envía
+      },
+      body: JSON.stringify({ prompt }), // Convertir el prompt a JSON y enviarlo en el cuerpo de la solicitud
+    });
+    
+    // Verificar si la solicitud fue exitosa
+    if (respuesta.ok) {
+      const data = await respuesta.json(); // Leer la respuesta como JSON
+      console.log(data); // Hacer algo con la respuesta
+      setLoading(false)
+    } else {
+      console.error('Error:', respuesta.statusText); // Manejar el error si la solicitud falla
     }
   }
   
   return (
     <div>
       {/*Titulo e iconos  */}
-      <div className='flex flex-col justify-center items-center mt-10'>
+      <div className='flex flex-col justify-center items-center mt-10'> 
         <h2 className='text-3xl text-primary font-bold uppercase'>Crear curso</h2>
-        <div className='flex'>
+        <div className='flex mt-5'>
           {ItemsCreate.map((Item, Index) => {
             return (
               <div key={Index} className='flex items-center mt-10'>
@@ -64,10 +103,12 @@ function page() {
           Siguiente
         </Button>)}
         {ActivarItem == 2 && (<Button
+        onClick={()=> handlerGenerarCurso()}
         >
           Generar Curso
         </Button>)}
       </div>
+      <LoadingDialog loading={loading} />
     </div>
   )
 }

@@ -4,17 +4,22 @@ import { redirect } from 'next/navigation'
 import React from 'react'
 
 function Hero() {
-  const {user} = useUser()
+    const { user } = useUser();
+    // Redirigir a diferentes vistas del dashboard si el usuario está autenticado
     if (user?.id) {
-        redirect("/dashboard")
+      // Verifica si ya estás en la ruta de dashboard para evitar redirecciones en bucle
+      if (window.location.pathname !== "/dashboard") {
+        redirect("/dashboard");
+      }
     }
+    
     return (
         <section className="bg-gray">
             <div className="mx-auto max-w-screen-md px-4 py-32 lg:flex lg:h-full lg:items-center">
                 <div className="mx-auto max-w-xl text-center">
                     <h1 className="text-3xl font-extrabold sm:text-5xl">
                         Ai Generadora de 
-                        <strong className="font-extrabold text-primary sm:block"> Cursos  </strong>
+                        <strong className="font-extrabold text-primary sm:block"> Cursos </strong>
                     </h1>
 
                     <p className="mt-4 sm:text-xl/relaxed">
