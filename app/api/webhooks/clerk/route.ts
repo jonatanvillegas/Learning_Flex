@@ -72,12 +72,12 @@ export async function POST(req: Request): Promise<Response> {
       ...(image_url !== undefined ? { imageUrl: image_url } : { imageUrl: null }),
       createdAt: new Date(),
       updatedAt: new Date()
-    };;
+    };
 
     await createUser(user);
   }
 
-  return new Response('', { status: 200 });
+  return new Response('el proceso ha finalizado', { status: 200 });
 }
 
 function addPadding(encodedString: string): string {
