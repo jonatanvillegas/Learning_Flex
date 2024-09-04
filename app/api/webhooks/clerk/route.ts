@@ -68,6 +68,8 @@ export async function POST(req: Request): Promise<Response> {
       ...(first_name !== undefined ? { firstName: first_name } : { firstName: null }),
       ...(last_name !== undefined ? { lastName: last_name } : { lastName: null }),
       ...(image_url !== undefined ? { imageUrl: image_url } : { imageUrl: null }),
+      creditos:3,
+      premium:false,
       createdAt: new Date(),
       updatedAt: new Date()
     };

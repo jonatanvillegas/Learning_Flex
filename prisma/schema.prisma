@@ -14,21 +14,39 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 model User {
-  id          String  
+  id          String    @id
   email       String   @unique
   firstName   String?
   lastName    String?
   imageUrl    String?
-  creditos    Int @default(3)
-  premium     Boolean @default(false)
+  creditos    Int      @default(3)
+  premium     Boolean  @default(false)
   clerkUserId String   @unique
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  courses     Course[] 
 }
-model Course{
-  id Int @id @default(autoincrement())
-  name String
-  Image String
-  category String
-  level String
+
+model Course {
+  id          Int      @id @default(autoincrement())
+  name        String
+  image       String
+  category    String
+  level       String
+  duration    String
+  numCapitulos Int
+  Chapters    Chapter[]
+  userId      String   
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+model Chapter {
+  id          Int      @id @default(autoincrement())
+  courseId    Int
+  name        String
+  description String
+  duration    String
+  course      Course   @relation(fields: [courseId], references: [id])
+  
+  @@index([courseId], name: "courseId")
 }
