@@ -6,8 +6,7 @@ import React from 'react'
 
 const AddCoruse = () => {
   const { user } = useUser();
-
-  console.log(user?.id)
+  
   return (
     <div className='flex justify-between items-center'>
       <div>

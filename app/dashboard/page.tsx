@@ -5,7 +5,7 @@ import AddCoruse from './_components/AddCoruse'
 function Dashboard() {
   return (
     <div>
-        <AddCoruse/>
+      <AddCoruse />
     </div>
   )
 }

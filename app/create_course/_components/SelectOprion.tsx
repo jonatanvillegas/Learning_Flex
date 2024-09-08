@@ -19,9 +19,9 @@ function SelectOprion() {
     console.log(userCourseInput)
     return (
         <div className='px-10 md:px-20 lg:px-44'>
-            <div className='grid grid-cols-2 gap-10'>
+            <div className='grid grid-cols-1 md:grid-cols-2  gap-10'>
                 <div>
-                    <label htmlFor="">Nivel de Dificultad</label>
+                    <label  htmlFor="">Nivel de Dificultad</label>
                     <Select onValueChange={(value)=> handlerInputChange("Dificultad",value)}
                         defaultValue={userCourseInput?.Dificultad}
                         >
@@ -67,7 +67,7 @@ function SelectOprion() {
                 <div>
                     <label htmlFor="" className='text-sm'>N° de Capitulos</label>
                     <Input type='number' className='h-14 text-lg' 
-                    onChange={(e)=>handlerInputChange("numCapitulos",e.target.value)}
+                    onChange={(e)=>handlerInputChange("numCapitulos", e.target.value)}
                     defaultValue={userCourseInput?.numCapitulos}
                     />
                 </div>

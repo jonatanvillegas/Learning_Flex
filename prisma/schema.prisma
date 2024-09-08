@@ -34,7 +34,7 @@ model Course {
   category    String
   level       String
   duration    String
-  numCapitulos Int
+  numCapitulos String
   Chapters    Chapter[]
   userId      String   
   user        User     @relation(fields: [userId], references: [id])

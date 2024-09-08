@@ -25,11 +25,29 @@ type Curso = {
   descripcion: string;
   duracion: string;
   categoria: string;
-  numCapitulos: number;
+  numCapitulos: string;
   Dificultad: string;
   capitulos: Capitulo[];
-  userId: string 
 };
+type CourseIA = {
+  idCourse: string;
+  userId: string;
+  nombre: string;
+  titulo: string;
+  categoria: string;
+  descripcion: string;
+  duracion: string;
+  dificultad: string;
+  numCapitulos: number;
+  capitulos: Capitulo[];
+}
+
+type coursePrueba = {
+  course: Curso
+  idCourse:string
+  userId:string
+}
 
 
-export type{ SidebarItem, ItemCreate,ItemCategory,Curso};
+
+export type{ SidebarItem, ItemCreate,ItemCategory,Curso,CourseIA,coursePrueba,Capitulo};
