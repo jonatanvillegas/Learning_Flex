@@ -9,7 +9,7 @@ const {
   
   const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
-    systemInstruction: "generar un tutorial de cursos con los siguientes detalles, con el nombre del curso en el campo descripción junto con el nombre del capítulo sobre duración: categoría: 'progrmacion', título: python, dificultad: básica, duración: 1 horas, número de capítulos: 5 capítulos en formato json\n\n{\ncurso:{\nnombre:\"\",\ndescripcion:\"\",\ncapitulos: [{\nnombre:\"\",\ndescripcion:\"\",\nduracion:\"15 minutos\"\n},\n{\nnombre:\"\",\ndescripcion:\"\",\ncapitulos: [{\nnombre:\"\",\ndescripcion:\"\",\nduracion:\"15 minutos\"\n},\n{\nnombre:\"\",\ndescripcion:\"\",\ncapitulos: [{\nnombre:\"\",\ndescripcion:\"\",\nduracion:\"15 minutos\"\n},\n{\nnombre:\"\",\ndescripcion:\"\",\ncapitulos: [{\nnombre:\"\",\ndescripcion:\"\",\nduracion:\"15 minutos\"\n}],categoria:\"\",\nTitulo:\"\",\nDificultad:\"\",\nDuracion:\"\",\nnumCapitulos: 4\n}\n}",
+    systemInstruction: "Generar un tutorial de cursos con los siguientes detalles en formato JSON. El nombre del curso debe estar en el campo descripcion, junto con el nombre del capítulo, sobre la duración:\n\nCategoría: \"programación\"\nTítulo: \"Python\"\nDificultad: \"básica\"\nDuración total: \"1 hora\"\nNúmero de capítulos: 5\nCada capítulo debe tener un nombre único y adecuado para realizar consultas en YouTube, y la duración de cada capítulo debe ser determinada de forma apropiada. El formato JSON debe ser el siguiente:\n{\n  \"curso\": {\n    \"nombre\": \"Python\",\n    \"descripcion\": \"Curso de Python - Programación básica\",\n    \"capitulos\": [\n      {\n        \"nombre\": \"Introducción a Python\",\n        \"descripcion\": \"Curso de Python: Introducción a Python - Aprender los conceptos básicos\",\n        \"duracion\": \"15 minutos\"\n      },\n      {\n        \"nombre\": \"Variables y Tipos de Datos\",\n        \"descripcion\": \"Curso de Python: Variables y Tipos de Datos - Explicación de los fundamentos\",\n        \"duracion\": \"12 minutos\"\n      },\n      {\n        \"nombre\": \"Control de Flujo\",\n        \"descripcion\": \"Curso de Python: Control de Flujo - Condicionales y bucles\",\n        \"duracion\": \"10 minutos\"\n      },\n      {\n        \"nombre\": \"Funciones y Módulos\",\n        \"descripcion\": \"Curso de Python: Funciones y Módulos - Cómo crear y usar funciones\",\n        \"duracion\": \"12 minutos\"\n      },\n      {\n        \"nombre\": \"Manejo de Errores y Excepciones\",\n        \"descripcion\": \"Curso de Python: Manejo de Errores y Excepciones - Tratamiento de errores en código\",\n        \"duracion\": \"11 minutos\"\n      }\n    ],\n    \"categoria\": \"programación\",\n    \"titulo\": \"Python\",\n    \"dificultad\": \"básica\",\n    \"duracion\": \"1 hora\",\n    \"numeroCapitulos\": 5\n  }\n}\n",
   });
   
   const generationConfig = {
@@ -23,19 +23,9 @@ const {
   
     export const chatSession = model.startChat({
       generationConfig,
+   // safetySettings: Adjust safety settings
+   // See https://ai.google.dev/gemini-api/docs/safety-settings
       history: [
-        {
-          role: "user",
-          parts: [
-            {text: "categoria programacion \nduracion 1 hora\ntitulo sql\nDificultad principiante\nnumero de capitulos 5"},
-          ],
-        },
-        {
-          role: "model",
-          parts: [
-            {text: "```json\n{\"curso\": {\"nombre\": \"SQL\", \"descripcion\": \"Curso de SQL para principiantes\", \"capitulos\": [{\"nombre\": \"Introducción a SQL\", \"descripcion\": \"Introducción a SQL: curso de SQL para principiantes - Introducción a SQL\", \"duracion\": \"15 minutos\"}, {\"nombre\": \"Sentencias SELECT\", \"descripcion\": \"Sentencias SELECT: curso de SQL para principiantes - Sentencias SELECT\", \"duracion\": \"15 minutos\"}, {\"nombre\": \"Sentencias WHERE\", \"descripcion\": \"Sentencias WHERE: curso de SQL para principiantes - Sentencias WHERE\", \"duracion\": \"15 minutos\"}, {\"nombre\": \"Sentencias ORDER BY\", \"descripcion\": \"Sentencias ORDER BY: curso de SQL para principiantes - Sentencias ORDER BY\", \"duracion\": \"15 minutos\"}, {\"nombre\": \"Sentencias GROUP BY\", \"descripcion\": \"Sentencias GROUP BY: curso de SQL para principiantes - Sentencias GROUP BY\", \"duracion\": \"15 minutos\"}], \"categoria\": \"programacion\", \"titulo\": \"SQL\", \"Dificultad\": \"principiante\", \"duracion\": \"1 hora\", \"numeroCapitulos\": 5}}\n\n```"},
-          ],
-        },
         {
           role: "user",
           parts: [
@@ -45,9 +35,8 @@ const {
         {
           role: "model",
           parts: [
-            {text: "```json\n{\"curso\": {\"nombre\": \"Angular\", \"descripcion\": \"Curso de Angular para desarrolladores avanzados\", \"capitulos\": [{\"nombre\": \"Componentes avanzados\", \"descripcion\": \"Componentes avanzados: curso de Angular para desarrolladores avanzados - Componentes avanzados\", \"duracion\": \"20 minutos\"}, {\"nombre\": \"Directivas personalizadas\", \"descripcion\": \"Directivas personalizadas: curso de Angular para desarrolladores avanzados - Directivas personalizadas\", \"duracion\": \"20 minutos\"}, {\"nombre\": \"Servicios y dependencias\", \"descripcion\": \"Servicios y dependencias: curso de Angular para desarrolladores avanzados - Servicios y dependencias\", \"duracion\": \"20 minutos\"}, {\"nombre\": \"Rutas avanzadas\", \"descripcion\": \"Rutas avanzadas: curso de Angular para desarrolladores avanzados - Rutas avanzadas\", \"duracion\": \"20 minutos\"}, {\"nombre\": \"Pruebas unitarias\", \"descripcion\": \"Pruebas unitarias: curso de Angular para desarrolladores avanzados - Pruebas unitarias\", \"duracion\": \"20 minutos\"}, {\"nombre\": \"Integración con backend\", \"descripcion\": \"Integración con backend: curso de Angular para desarrolladores avanzados - Integración con backend\", \"duracion\": \"20 minutos\"}], \"categoria\": \"programacion\", \"titulo\": \"Angular\", \"Dificultad\": \"avanzado\", \"duracion\": \"2 horas\", \"numeroCapitulos\": 6}}\n\n```"},
+            {text: "```json\n{\"curso\": {\"nombre\": \"Angular\", \"descripcion\": \"Curso de Angular - Desarrollo web avanzado\", \"capitulos\": [{\"nombre\": \"Introducción a Angular\", \"descripcion\": \"Curso de Angular: Introducción a Angular - Aprender los conceptos básicos\", \"duracion\": \"20 minutos\"}, {\"nombre\": \"Componentes y Templates\", \"descripcion\": \"Curso de Angular: Componentes y Templates - Cómo construir interfaces de usuario\", \"duracion\": \"20 minutos\"}, {\"nombre\": \"Directivas y Pipes\", \"descripcion\": \"Curso de Angular: Directivas y Pipes - Manipulación del DOM y transformación de datos\", \"duracion\": \"15 minutos\"}, {\"nombre\": \"Servicios y Dependencia de Inyección\", \"descripcion\": \"Curso de Angular: Servicios y Dependencia de Inyección - Cómo gestionar la lógica del negocio\", \"duracion\": \"20 minutos\"}, {\"nombre\": \"Rutas y Navegación\", \"descripcion\": \"Curso de Angular: Rutas y Navegación - Cómo crear aplicaciones de múltiples páginas\", \"duracion\": \"15 minutos\"}, {\"nombre\": \"Pruebas Unitarias y de Integración\", \"descripcion\": \"Curso de Angular: Pruebas Unitarias y de Integración - Cómo asegurar la calidad del código\", \"duracion\": \"20 minutos\"}], \"categoria\": \"programacion\", \"titulo\": \"Angular\", \"dificultad\": \"avanzado\", \"duracion\": \"2 horas\", \"numeroCapitulos\": 6}}\n\n```"},
           ],
         },
       ],
     });
-;

@@ -5,6 +5,7 @@ import { CiCircleCheck } from "react-icons/ci";
 type props = {
   capitulo: Capitulo
   index: number
+  key:number
 }
 
 const ListChapter = ({ capitulo, index }: props) => {

@@ -16,6 +16,7 @@ type Capitulo = {
   nombre: string;
   descripcion: string;
   duracion: string;
+  videoId?: string
 };
 
 type Curso = {
@@ -48,6 +49,48 @@ type coursePrueba = {
   userId:string
 }
 
+//types Video
+
+// types.ts
+
+export type Thumbnail = {
+  url: string;
+  width: number;
+  height: number;
+};
+
+export type Thumbnails = {
+  default: Thumbnail;
+  medium: Thumbnail;
+  high: Thumbnail;
+};
+
+export type VideoId = {
+  kind: 'youtube#video';
+  videoId: string;
+};
+
+export type VideoSnippet = {
+  channelId: string;
+  channelTitle: string;
+  description: string;
+  liveBroadcastContent: string;
+  publishTime: string;
+  publishedAt: string;
+  thumbnails: Thumbnails;
+  title: string;
+};
+
+export type Video = {
+  etag: string;
+  id: VideoId;
+  kind: 'youtube#searchResult';
+  snippet: VideoSnippet;
+};
+
+export type YouTubeResponse = {
+  items: Video[];
+};
 
 
 export type{ SidebarItem, ItemCreate,ItemCategory,Curso,CourseIA,coursePrueba,Capitulo};

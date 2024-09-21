@@ -16,7 +16,7 @@ const Page = ({ idCourse }: Props) => {
   const router = useRouter();
   const { Course } = useCourse();
   const course = Course?.course;
-
+  const userId = Course?.userId || "";
   // Estado para manejar la hidratación
   const [isHydrated, setIsHydrated] = useState(false);
 
@@ -45,14 +45,14 @@ const Page = ({ idCourse }: Props) => {
             Estructura del curso
           </h2>
           {/* Información del curso */}
-          <InformationBasic course={course} />
+          <InformationBasic course={course} userId={userId}/>
           {/* Detalle del curso */}
           <DetailCourse course={course} />
           {/* Capítulos del curso */}
           <h2 className='font-semibold text-2xl mt-3'>Capitulos</h2>
           {
             course.capitulos.map((capitulo,index) => (
-              <ListChapter capitulo={capitulo} index={index} />
+              <ListChapter capitulo={capitulo} key={index} index={index} />
             ))
           }
         </div>

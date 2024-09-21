@@ -40,6 +40,7 @@ export async function POST(req: NextRequest) {
     //     userId: userId,
     //     Chapters: {
     //       create: course.capitulos.map((capitulo) => ({
+    //         videoId:videoId
     //         name: capitulo.nombre,
     //         description: capitulo.descripcion,
     //         duration: capitulo.duracion,

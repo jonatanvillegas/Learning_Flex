@@ -61,7 +61,7 @@ function Page() {
         // Setear el curso en el estado global
         setCourse(course)
         // Redirigir al usuario al curso creado
-        router.replace(`/create_course/${idCourse}`);
+       await router.replace(`/create_course/${idCourse}`);
       } else {
         console.error('Error:', respuesta.statusText);
       }

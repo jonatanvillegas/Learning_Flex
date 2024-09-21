@@ -15,7 +15,7 @@ const Sidebar = () => {
     return (
         <div className='fixed h-full md:w-64 p-5 shadow-md'>
             <div>
-                Learnin Flex
+                Mentorix
             </div>
             <hr className='my-5' />
             <ul>

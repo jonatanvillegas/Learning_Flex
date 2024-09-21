@@ -46,6 +46,7 @@ model Chapter {
   name        String
   description String
   duration    String
+  videoId     String
   course      Course   @relation(fields: [courseId], references: [id])
   
   @@index([courseId], name: "courseId")

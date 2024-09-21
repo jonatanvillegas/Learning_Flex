@@ -1,6 +1,5 @@
 import { useUserInput } from '@/app/_store/Zustand'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import React from 'react'
 
 
@@ -20,13 +19,6 @@ function Description() {
                 <Input className='mt-4' placeholder='Titulo' 
                     onChange={(e)=>handlerInputChange("Titulo",e.target.value)}
                     defaultValue={userCourseInput?.Titulo}
-                />
-            </div>
-            <div className='mt-5'>
-                <label htmlFor="">Dime mas sobre el curso que quieras que cree</label>
-                <Textarea className='mt-4' placeholder='Descripcion del Curso'
-                onChange={(e)=>handlerInputChange("Descripcion",e.target.value)}
-                defaultValue={userCourseInput?.Descripcion}
                 />
             </div>
         </div>

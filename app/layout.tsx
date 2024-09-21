@@ -6,7 +6,7 @@ import { ClerkProvider, GoogleOneTap } from "@clerk/nextjs";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Learnig Flex",
+  title: "Mentorix",
   description: "Generador de Cursos",
 };
 
