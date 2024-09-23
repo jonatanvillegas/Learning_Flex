@@ -19,70 +19,46 @@ const InformationBasic = ({ course, userId }: props) => {
     const files = e.target.files;
     if (files && files.length > 0) {
       const file = files[0];
-      console.log(file)
+      console.log(file.name)
       setSelectedFile(file);
     }
   };
 
-  // // Subir la imagen a Supabase
-  // const uploadImage = async () => {
-  //     if (!selectedFile) {
-  //         console.error('No hay archivo seleccionado');
-  //         return;
-  //     }
 
-  //     const {  error } = await supabase.storage.from('Image').upload(`ImageCourse/${selectedFile.name}`, selectedFile)
-
-
-  //     const { data } = await supabase.storage.from('Image').getPublicUrl(`ImageCourse/${selectedFile.name}`);
-
-  //     if (error) {
-  //         console.error('Error al subir la imagen:', error);
-  //     } else {
-  //         console.log('Imagen subida exitosamente:', data);
-  //     }
-  // };
-  // //Obtener videos de YouTube para cada capítulo
   // const fetchVideosForChapters = async () => {
-  //     try {
-  //         const videoPromises = course.capitulos.map((capitulo) => {
-  //             // Dividiendo la descrpcion en dos partes
-  //             const query = capitulo.descripcion.split('-')[0].trim();
+  //   try {
+  //     const videoPromises = course.capitulos.map(async (capitulo) => {
+  //       const query = capitulo.descripcion.split('-')[0].trim();
+  //       const videos = await ObtenerVideoYoutube(query);
+  //       return videos.items.map((video: Video) => video.id.videoId)
+  //     });
 
-  //             //pasando la query 
-  //             return ObtenerVideoYoutube(query);
-  //         });
-
-  //         const videoResults = await Promise.all(videoPromises);
-
-  //         console.log('Resultado de la búsqueda:', videoResults);
-  //         setVideos(videoResults);
-  //     } catch (error) {
-  //         console.error('Error obteniendo videos de YouTube:', error);
-  //     }
+  //     const videoResults = await Promise.all(videoPromises);
+  //     setVideos(videoResults.flat());
+  //   } catch (error) {
+  //     console.error('Error obteniendo videos de YouTube:', error);
+  //   }
   // };
-
-  // useEffect(() => {
-  //     if (course.capitulos?.length > 0) {
-  //         fetchVideosForChapters();
-  //     }
-  // }, [course.capitulos]);
-
+  const generarIdVideoSimulado = () => {
+    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let id = '';
+    for (let i = 0; i < 11; i++) {
+      id += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+    }
+    return id;
+  };
+  
+  // Generar datos de prueba para videos de capítulos
   const fetchVideosForChapters = async () => {
     try {
-      const videoPromises = course.capitulos.map(async (capitulo) => {
-        const query = capitulo.descripcion.split('-')[0].trim();
-        const videos = await ObtenerVideoYoutube(query);
-        console.log("estos son los id de los videos", videos.items.map((video: Video) => video.id.videoId))
-      });
-
-      const videoResults = await Promise.all(videoPromises);
-      setVideos(videoResults.flat());
+      // Simular la asignación de IDs a cada capítulo
+      const videoResults = course.capitulos.map(() => generarIdVideoSimulado());
+      setVideos(videoResults);
     } catch (error) {
-      console.error('Error obteniendo videos de YouTube:', error);
+      console.error('Error generando videos simulados:', error);
     }
   };
-
+  console.log('Informacion del curso',course)
   const saveCourse = async () => {
     try {
       const formData = new FormData();
@@ -96,6 +72,7 @@ const InformationBasic = ({ course, userId }: props) => {
       }));
       formData.append('userId', userId); // Cambia esto según el ID del usuario
 
+      console.log("informacion del Form Data")
       const response = await fetch('/api/curso', {
         method: 'POST',
         body: formData,
