@@ -8,11 +8,8 @@ import ListChapter from './_components/ListChapter';
 import { useRouter } from 'next/navigation';
 import { useCourse } from '@/app/_store/curso';
 
-type Props = {
-  idCourse: string;
-};
 
-const Page = ({ idCourse }: Props) => {
+const Page = () => {
   const router = useRouter();
   const { Course } = useCourse();
   const course = Course?.course;
