@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ItemsCreate } from './ItemsCrear'
 import { Button } from '@/components/ui/button';
 import SelectCategory from './_components/SelectCategory';
@@ -41,9 +41,9 @@ function Page() {
   // Función para manejar la generación del curso
   const handlerGenerarCurso = async () => {
     setLoading(true); // Indicar que la carga ha comenzado
-
+  
     const prompt = `genera el curso categoria:${userCourseInput?.categoria} Titulo:${userCourseInput?.Titulo} Dificultad:${userCourseInput?.Dificultad} Duracion:${userCourseInput?.Duracion} numCapitulos:${userCourseInput?.numCapitulos}`;
-
+  
     try {
       const respuesta = await fetch('/api/crear-curso', {
         method: 'POST',
@@ -52,24 +52,26 @@ function Page() {
         },
         body: JSON.stringify({ prompt }),
       });
-
+  
       if (respuesta.ok) {
         const data = await respuesta.json();
         const { course } = data;
         const { idCourse } = course;
-
+  
         // Setear el curso en el estado global
         setCourse(course)
         // Redirigir al usuario al curso creado
-       await router.replace(`/create_course/${idCourse}`);
+        router.replace(`/create_course/${idCourse}`);
       } else {
         console.error('Error:', respuesta.statusText);
       }
     } catch (error) {
       console.error('Error:', error);
-    } finally {
-      setLoading(false); // Indicar que la carga ha terminado, independientemente del resultado
     }
+  
+    useEffect(() => {
+      setLoading(false); // Indicar que la carga ha terminado
+    }, []);
   };
 
   return (

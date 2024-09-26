@@ -6,6 +6,7 @@ import prisma from '@/lib/prisma';
 import { Curso } from '@/types';
 import { auth } from '@clerk/nextjs/server';
 import { v4 as uuidv4 } from 'uuid'
+
 export async function POST(req: NextRequest) {
   try {
     // Leer datos del cuerpo de la solicitud
@@ -29,27 +30,7 @@ export async function POST(req: NextRequest) {
         { status: 401 } // Unauthorized
       );
     }
-    // const nuevoCurso = await prisma.course.create({
-    //   data: {
-    //     name: course.nombre,
-    //     image: "",
-    //     category: course.categoria,
-    //     level: course.Dificultad,
-    //     duration: course.duracion,
-    //     numCapitulos: String(course.numCapitulos),
-    //     userId: userId,
-    //     Chapters: {
-    //       create: course.capitulos.map((capitulo) => ({
-    //         videoId:videoId
-    //         name: capitulo.nombre,
-    //         description: capitulo.descripcion,
-    //         duration: capitulo.duracion,
-    //       })),
-    //     },
-    //   },
-    //   select: { id: true }, 
-    // });
-   
+
     console.log("funciono")
     // Responder con el JSON sin caracteres de escape
     return NextResponse.json({

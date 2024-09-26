@@ -32,7 +32,7 @@ export default function Page() {
             </a>
 
             <h1 className="mt-6 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-              Vienvenido a Learning Flex 🦑
+              Vienvenido a Mentorix 🦑
             </h1>
             <div className='flex justify-center items-center py-4'>
 
