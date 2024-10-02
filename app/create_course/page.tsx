@@ -78,7 +78,7 @@ function Page() {
     <div>
       {/* Título e iconos */}
       <div className='flex flex-col justify-center items-center mt-10'>
-        <h2 className='text-3xl text-primary font-bold uppercase'>Crear curso</h2>
+        <h2 className='text-3xl text-primary font-bold uppercase dark:text-white'>Crear curso</h2>
         <div className='flex mt-5'>
           {ItemsCreate.map((Item, Index) => {
             return (
@@ -112,11 +112,13 @@ function Page() {
           <Button
             disabled={ChekedStatus()}
             onClick={() => setActivarItem(ActivarItem + 1)}
+            className='dark:text-white'
           >
             Siguiente
           </Button>)}
         {ActivarItem === 2 && (<Button
           onClick={() => handlerGenerarCurso()}
+          className='dark:text-white'
         >
           Generar Curso
         </Button>)}

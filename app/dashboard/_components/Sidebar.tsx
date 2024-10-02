@@ -22,8 +22,8 @@ const Sidebar = () => {
                 {sidebarItems.map((Item, index) => {
                     return (
                         <Link key={index} href={Item.path}>
-                            <div className={`flex items-center gap-4 py-3 cursor-pointer hover:bg-slate-100 p-3
-                            rounded-md hover:font-bold ${Item.path == path && 'bg-slate-100 font-bold'}`}>
+                            <div className={`flex items-center gap-4 py-3 cursor-pointer  hover:bg-slate-100 p-3
+                            rounded-md hover:font-bold ${Item.path == path && 'bg-slate-100 font-bold dark:text-primary'}`}>
                                 <div className=''>
                                     {< Item.icon />}
                                 </div>
@@ -36,7 +36,7 @@ const Sidebar = () => {
             <div className='absolute bottom-10 w-[80%]'>
                 <Progress value={50} />
                 <h2 className='text-gray-500 text-lg font-bold py-2'>3 de 5 cursos creados</h2>
-                <h3 className='text-xs'>actualiza tu plan para crear mas cursos</h3>
+                <h3 className='text-xs'>Crean más cursos que marquen la diferencia</h3>
             </div>
         </div>
     )

@@ -76,7 +76,7 @@ function Hero() {
 
     return (
         <>
-            <section className="bg-gray">
+            <section className="bg-gray border-b-2">
                 <div className="mx-auto max-w-screen-md px-4 py-52 lg:flex lg:h-full lg:items-center">
                     <div className="mx-auto max-w-xl text-center">
                         <h1 className="text-3xl font-extrabold sm:text-5xl">
@@ -85,7 +85,7 @@ function Hero() {
                         </h1>
 
                         <p className="mt-4 sm:text-xl/relaxed">
-                            contan solo proporcionar un titulo tendras un curso 100% genial
+                            Solo Imagina el titulo, has clic y desbloquea el curso que cambiara tuvida al 100%
                         </p>
 
                         <div className="mt-8 flex flex-wrap justify-center gap-4">
@@ -93,16 +93,15 @@ function Hero() {
                                 className="block w-full rounded bg-primary px-12 py-3 text-sm font-medium text-white shadow hover:bg-blue-950 focus:outline-none focus:ring active:bg-sky-900 sm:w-auto"
                                 href="/sign-in"
                             >
-                                Get Started
+                                Empezar
                             </a>
                         </div>
                     </div>
                 </div>
             </section>
-
-            <section className="py-20 bg-gradient-to-b from-gray-100 to-white">
+            <section className="py-20 bg-gray border-b-2">
                 <div className="container mx-auto px-4">
-                    <h2 className="text-4xl font-extrabold text-center text-gray-900 mb-12">
+                    <h2 className="text-4xl font-extrabold text-center text-gray-900 mb-12 dark:text-white">
                         Cómo Funciona
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -110,7 +109,7 @@ function Hero() {
                             <div className="flex justify-center mb-6">
                                 <FaChartLine className="text-4xl text-primary" />
                             </div>
-                            <h3 className="text-2xl font-bold text-center mb-4">1. Análisis</h3>
+                            <h3 className="text-2xl font-bold text-center mb-4 dark:text-primary">1. Análisis</h3>
                             <p className="text-gray-600 text-center">
                                 Analizamos el flujo de usuarios en tu plataforma para identificar áreas de mejora.
                             </p>
@@ -120,7 +119,7 @@ function Hero() {
                             <div className="flex justify-center mb-6">
                                 <FaCogs className="text-4xl text-primary" />
                             </div>
-                            <h3 className="text-2xl font-bold text-center mb-4">2. Optimización</h3>
+                            <h3 className="text-2xl font-bold text-center mb-4 dark:text-primary">2. Optimización</h3>
                             <p className="text-gray-600 text-center">
                                 Implementamos cambios estratégicos para mejorar la experiencia del usuario.
                             </p>
@@ -130,7 +129,7 @@ function Hero() {
                             <div className="flex justify-center mb-6">
                                 <FaChartPie className="text-4xl text-primary" />
                             </div>
-                            <h3 className="text-2xl font-bold text-center mb-4">3. Resultados</h3>
+                            <h3 className="text-2xl font-bold text-center mb-4 dark:text-primary">3. Resultados</h3>
                             <p className="text-gray-600 text-center">
                                 Medimos el impacto de los cambios y ajustamos para maximizar las conversiones.
                             </p>
@@ -138,7 +137,7 @@ function Hero() {
                     </div>
                 </div>
             </section>
-            <section className="py-16 bg-gray-50">
+            <section className="py-16 bg-gray border-b-2">
                 <div className="container mx-auto px-4">
                     <h2 className="text-3xl font-bold text-center mb-12">Cómo usar nuestra aplicación</h2>
                     <div className="relative">
@@ -172,9 +171,9 @@ function Hero() {
                     </div>
                 </div>
             </section>
-            <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+            <section className="py-20 bg-gray border-b-2">
                 <div className="container mx-auto px-4">
-                    <h2 className="text-4xl font-extrabold text-center mb-12 text-gray-900">Nuestro Equipo</h2>
+                    <h2 className="text-4xl font-extrabold text-center mb-12 text-gray-900 dark:text-white">Nuestro Equipo</h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                         {team.map((member, index) => (
                             <div

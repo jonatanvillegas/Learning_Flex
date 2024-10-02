@@ -15,10 +15,10 @@ const AddCoruse = () => {
             {user?.fullName}
           </span>
         </h2>
-        <p>Crea un nuevo curso con ayuda de la IA</p>
+        <p>Diseña tu proximo curso con la potencia de la <span className='text-primary'>IA</span> a tu lado</p>
       </div>
       <Link href="/create_course" >
-        <Button>+  Crear con IA</Button>
+        <Button className='dark:text-white'>+  Crear con IA</Button>
       </Link>
     </div>
   )

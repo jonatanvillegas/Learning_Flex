@@ -16,7 +16,6 @@ function SelectOprion() {
     const handlerInputChange = (name:string,value:string) => {
       setUserCourseInput(name,value)
     }
-    console.log(userCourseInput)
     return (
         <div className='px-10 md:px-20 lg:px-44'>
             <div className='grid grid-cols-1 md:grid-cols-2  gap-10'>

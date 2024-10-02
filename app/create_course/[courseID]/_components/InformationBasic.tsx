@@ -110,7 +110,7 @@ const InformationBasic = ({ course, userId }: props) => {
           <h2 className='font-bol text-2xl'>{course.titulo}</h2>
           <p className='text-xs text-gray-400 mt-3 truncate'>{course?.descripcion}</p>
           <h2 className='font-medium flex gap-2 items-center mb-5'>{course?.categoria}</h2>
-          <Button className='bg-primary w-full' onClick={saveCourse} disabled={!videos?.length}>
+          <Button className='bg-primary w-full dark:text-white' onClick={saveCourse} disabled={!videos?.length}>
             {videos ? "Iniciar" : "Cargando..."}
           </Button>
         </div>

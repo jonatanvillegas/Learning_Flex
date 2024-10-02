@@ -27,6 +27,7 @@
     "generate_ai": "file:",
     "lucide-react": "^0.436.0",
     "next": "^14.2.14",
+    "next-themes": "^0.3.0",
     "prisma": "^5.19.0",
     "react": "^18",
     "react-dom": "^18",
