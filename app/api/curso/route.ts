@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma'; // Asegúrate de tener la configuración de Prisma
 import { NextRequest } from 'next/server';
 import supabase from '@/lib/supabase'; // Importa tu cliente de Supabase
-import { Capitulo, CourseIA } from '@/types';
+import { Capitulo, Curso } from '@/types';
 import { File } from 'buffer';
 
 export async function POST(request: NextRequest) {
@@ -20,9 +20,11 @@ export async function POST(request: NextRequest) {
       );
     }
     // Parsear `courseData` de string a objeto
-    const parsedCourseData:CourseIA = JSON.parse(courseData as string);
+    const parsedCourseData:Curso = JSON.parse(courseData as string);
     const userId = typeof userIdValue === 'string' ? userIdValue : undefined;
     // Asegurarse de que `imageFile` es de tipo `File`
+
+    console.log('probando numero de capitulos',parsedCourseData.numeroCapitulos)
     if (!(imageFile instanceof File)) {
       return NextResponse.json(
         { error: 'El archivo proporcionado no es válido' },
@@ -42,7 +44,7 @@ export async function POST(request: NextRequest) {
         category: parsedCourseData.categoria,
         level: parsedCourseData.dificultad,
         duration: parsedCourseData.duracion,
-        numCapitulos: String(parsedCourseData.numCapitulos),
+        numCapitulos: String(parsedCourseData.numeroCapitulos),
         userId: userId,
         Chapters: {
           create: parsedCourseData.capitulos.map((capitulo:Capitulo) => ({

@@ -8,6 +8,7 @@ type props = {
     course: Curso
 }
 const DetailCourse = ({ course }: props) => {
+    console.log(course)
     return (
         <div className='border p-6 rounded-xl shadow-md mt-3 justify-center'>
             <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
@@ -18,7 +19,7 @@ const DetailCourse = ({ course }: props) => {
                     <h2 className='text-xs text-gray-500 '>
                         Nivel:
                     </h2>
-                    <h2 className='font-medium text-lg'>{course.Dificultad}</h2>
+                    <h2 className='font-medium text-lg'>{course.dificultad}</h2>
                 </div>
                 <div className='flex gap-4 justify-center items-center'>
                     <div>
@@ -36,7 +37,7 @@ const DetailCourse = ({ course }: props) => {
                     <h2 className='text-xs text-gray-500 '>
                         Numero de Cap:
                     </h2>
-                    <h2 className='font-medium text-lg'>{course?.numCapitulos}</h2>
+                    <h2 className='font-medium text-lg'>{course?.numeroCapitulos}</h2>
                 </div>
             </div>
         </div>

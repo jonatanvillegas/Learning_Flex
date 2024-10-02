@@ -26,8 +26,8 @@ type Curso = {
   descripcion: string;
   duracion: string;
   categoria: string;
-  numCapitulos: string;
-  Dificultad: string;
+  numeroCapitulos: string;
+  dificultad: string;
   capitulos: Capitulo[];
 };
 type CourseIA = {

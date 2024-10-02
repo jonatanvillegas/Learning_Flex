@@ -121,7 +121,7 @@ function Page() {
           Generar Curso
         </Button>)}
       </div>
-      <LoadingDialog loading={loading} />
+      <LoadingDialog loading={loading} titulo='por favor espera... Mentorix esta trabajando en tu curso.'/>
     </div>
   );
 }

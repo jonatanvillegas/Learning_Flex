@@ -4,6 +4,8 @@ import { Curso, Video, YouTubeResponse } from '@/types'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { ObtenerVideoYoutube } from '@/lib/SearchYoutube'
+import LoadingDialog from '../../LoadingDialog'
+import { useRouter } from 'next/navigation'
 
 type props = {
   course: Curso
@@ -12,8 +14,10 @@ type props = {
 
 const InformationBasic = ({ course, userId }: props) => {
 
+  const router = useRouter();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [videos, setVideos] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
   // Obtener imagen del usuario
   const onFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -23,6 +27,7 @@ const InformationBasic = ({ course, userId }: props) => {
       setSelectedFile(file);
     }
   };
+  console.log('probando desde informacion numero',course.numeroCapitulos)
 
 
   // const fetchVideosForChapters = async () => {
@@ -61,6 +66,7 @@ const InformationBasic = ({ course, userId }: props) => {
   console.log('Informacion del curso',course)
   const saveCourse = async () => {
     try {
+      setLoading(true)
       const formData = new FormData();
       formData.append('imageFile', selectedFile!); // Asegúrate de que `selectedFile` no es null
       formData.append('course', JSON.stringify({
@@ -80,7 +86,9 @@ const InformationBasic = ({ course, userId }: props) => {
 
       const result = await response.json();
       if (response.ok) {
+        setLoading(false)
         console.log('Curso guardado exitosamente:', result);
+        router.replace('/dashboard');
       } else {
         console.error('Error al guardar el curso:', result.error);
       }
@@ -120,6 +128,7 @@ const InformationBasic = ({ course, userId }: props) => {
           />
         </div>
       </div>
+      <LoadingDialog loading={loading} titulo='estamos guardando tu curso espera un momento.'/>
     </div>
   )
 }

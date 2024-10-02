@@ -13,18 +13,19 @@ import {
 import Image from 'next/image'
 
 type props ={
-    loading:boolean
+    loading:boolean,
+    titulo: string
 }
-const LoadingDialog = ({loading}:props) => {
+const LoadingDialog = ({loading,titulo}:props) => {
     return (
         <div>
-            <AlertDialog open={loading}>
-                <AlertDialogContent>
+            <AlertDialog  open={loading}>
+                <AlertDialogContent  className="bg-[#021744] text-white">
                     <AlertDialogHeader>
                         <AlertDialogDescription>
                             <div className='flex flex-col items-center py-10'>
                                 <Image src={"/loading.gif"} width={200} height={200} alt='gif cargando'/>
-                                <h3>por favor espera... Mentorix esta trabajando en tu cuso.</h3>
+                                <h3>{titulo}</h3>
                             </div>
                         </AlertDialogDescription>
                     </AlertDialogHeader>
