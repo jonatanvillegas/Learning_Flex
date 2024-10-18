@@ -30,39 +30,39 @@ const InformationBasic = ({ course, userId }: props) => {
   console.log('probando desde informacion numero',course.numeroCapitulos)
 
 
-  // const fetchVideosForChapters = async () => {
-  //   try {
-  //     const videoPromises = course.capitulos.map(async (capitulo) => {
-  //       const query = capitulo.descripcion.split('-')[0].trim();
-  //       const videos = await ObtenerVideoYoutube(query);
-  //       return videos.items.map((video: Video) => video.id.videoId)
-  //     });
-
-  //     const videoResults = await Promise.all(videoPromises);
-  //     setVideos(videoResults.flat());
-  //   } catch (error) {
-  //     console.error('Error obteniendo videos de YouTube:', error);
-  //   }
-  // };
-  const generarIdVideoSimulado = () => {
-    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let id = '';
-    for (let i = 0; i < 11; i++) {
-      id += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
-    }
-    return id;
-  };
-  
-  // Generar datos de prueba para videos de capítulos
   const fetchVideosForChapters = async () => {
     try {
-      // Simular la asignación de IDs a cada capítulo
-      const videoResults = course.capitulos.map(() => generarIdVideoSimulado());
-      setVideos(videoResults);
+      const videoPromises = course.capitulos.map(async (capitulo) => {
+        const query = capitulo.descripcion.split('-')[0].trim();
+        const videos = await ObtenerVideoYoutube(query);
+        return videos.items.map((video: Video) => video.id.videoId)
+      });
+
+      const videoResults = await Promise.all(videoPromises);
+      setVideos(videoResults.flat());
     } catch (error) {
-      console.error('Error generando videos simulados:', error);
+      console.error('Error obteniendo videos de YouTube:', error);
     }
   };
+  // const generarIdVideoSimulado = () => {
+  //   const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  //   let id = '';
+  //   for (let i = 0; i < 11; i++) {
+  //     id += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+  //   }
+  //   return id;
+  // };
+  
+  // // Generar datos de prueba para videos de capítulos
+  // const fetchVideosForChapters = async () => {
+  //   try {
+  //     // Simular la asignación de IDs a cada capítulo
+  //     const videoResults = course.capitulos.map(() => generarIdVideoSimulado());
+  //     setVideos(videoResults);
+  //   } catch (error) {
+  //     console.error('Error generando videos simulados:', error);
+  //   }
+  // };
   console.log('Informacion del curso',course)
   const saveCourse = async () => {
     try {
@@ -97,11 +97,13 @@ const InformationBasic = ({ course, userId }: props) => {
     }
   };
 
+  console.log('mostrando videos',videos)
   useEffect(() => {
     if (course.capitulos?.length > 0) {
       fetchVideosForChapters();
     }
   }, [course.capitulos]);
+
 
   return (
     <div className='p-10 boder rounded-xl shadow-md mt-5'>

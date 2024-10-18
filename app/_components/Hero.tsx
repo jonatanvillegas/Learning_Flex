@@ -142,7 +142,7 @@ function Hero() {
                     <h2 className="text-3xl font-bold text-center mb-12">Cómo usar nuestra aplicación</h2>
                     <div className="relative">
                         {/* Línea central */}
-                        <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-primary"></div>
+                        <div className="absolute left-1/2 transform -translate-x-1/2 bg- w-1 h-full bg-primary"></div>
 
                         {timelineSteps.map((step, index) => (
                             <div

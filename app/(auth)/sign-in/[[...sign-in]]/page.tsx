@@ -36,7 +36,14 @@ export default function Page() {
             </h1>
             <div className='flex justify-center items-center py-4'>
 
-            <SignIn />
+            <SignIn 
+            appearance={{
+              variables: {
+                colorPrimary: '#021744', // Cambia el color primario
+                borderRadius: '8px', // Cambia el radio del borde
+              }
+            }}
+            />
             </div>
           </div>
         </main>

@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button"
 import { Trash2 } from "lucide-react"
 import Image from 'next/image'
 import Swal from 'sweetalert2'  // Importa SweetAlert
+import Link from 'next/link'
 
 type Props = {
   userId: string
@@ -61,7 +62,7 @@ export default function CourseList({ userId }: Props) {
   }, [userId])
 
   useEffect(() => {
-    const filtered = courses.filter(course => 
+    const filtered = courses.filter(course =>
       (categoryFilter === 'all' || course.category === categoryFilter) &&
       (levelFilter === 'all' || course.level === levelFilter)
     )
@@ -112,7 +113,7 @@ export default function CourseList({ userId }: Props) {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Mis Cursos</h1>
-      
+
       <div className="flex flex-col md:flex-row gap-4 mb-6">
         <Select onValueChange={handleCategoryChange}>
           <SelectTrigger className="w-full md:w-[180px]">
@@ -140,6 +141,15 @@ export default function CourseList({ userId }: Props) {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredCourses.map((course) => (
           <Card key={course.id} className="flex flex-col relative">
+            <Link href={`/course/${course.id}/init`}>
+              <Button
+                variant="outline"
+                size="icon"
+                className="absolute top-2 right-20 z-10"
+              >
+                Ir
+              </Button>
+            </Link>
             <Button
               variant="destructive"
               size="icon"
@@ -148,6 +158,7 @@ export default function CourseList({ userId }: Props) {
             >
               <Trash2 className="h-4 w-4" />
             </Button>
+
             <CardHeader className="p-0">
               <div className="relative w-full h-48">
                 <Image

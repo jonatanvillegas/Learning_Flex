@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Bar, BarChart, Cell, Pie, PieChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
 import { MoreHorizontal, ArrowUpDown, UserMinus, Users, UserCheck, UserX } from "lucide-react"
 
@@ -24,54 +24,109 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Badge } from "@/components/ui/badge"
 import Header from "../dashboard/_components/Header"
+import axios from "axios"
+import { User } from "@prisma/client"
 
 export default function Component() {
 
-  const [users, setUsers] = useState([
-    { id: 1, name: "Alice Johnson", email: "alice@example.com", status: "Premium" },
-    { id: 2, name: "Bob Smith", email: "bob@example.com", status: "Basic" },
-    { id: 3, name: "Charlie Brown", email: "charlie@example.com", status: "Premium" },
-    { id: 4, name: "David Lee", email: "david@example.com", status: "Basic" },
-    { id: 5, name: "Eva Martinez", email: "eva@example.com", status: "Premium" },
-  ])
+  const [users, setUsers] = useState<User[]>([])
+  const [barChartData, setBarChartData] = useState([
+    { name: "Jan", users: 0 },
+    { name: "Feb", users: 0 },
+    { name: "Mar", users: 0 },
+    { name: "Apr", users: 0 },
+    { name: "May", users: 0 },
+    { name: "Jun", users: 0 },
+    { name: "Jul", users: 0 },
+    { name: "Aug", users: 0 },
+    { name: "Sep", users: 0 },
+    { name: "Oct", users: 0 },
+    { name: "Nov", users: 0 },
+    { name: "Dec", users: 0 },
+  ]);
+
+  const handleDelete = (id: string) => {
+    axios.delete('/api/user', { data: { id } })
+      .then(response => {
+        console.log(response.data.message);
+        setUsers(users.filter(user => user.id !== id)); // Actualiza el estado después de eliminar
+      })
+      .catch(error => {
+        console.error("Error eliminando el usuario:", error);
+      });
+  }
+
+  const handleToggleStatus = async (id: string) => {
+    try {
+      const response = await axios.patch('/api/user', { id });
+
+      // Si la solicitud fue exitosa
+      console.log('Estado del usuario actualizado:', response.data);
+      // Actualiza el estado local después de cambiar el estado del usuario
+      setUsers(users.map(user =>
+        user.id === id ? { ...user, premium: !user.premium } : user
+      ));
+    } catch (error: any) {
+      // Manejo de errores
+      if (error.response) {
+        console.error('Error actualizando el estado del usuario:', error.response.data.error);
+      } else {
+        console.error('Error al hacer la solicitud:', error.message);
+      }
+    }
+  }
+  function countUsersByMonth(users: User[]) {
+    const months = [
+      { name: "Jan", users: 0 },
+      { name: "Feb", users: 0 },
+      { name: "Mar", users: 0 },
+      { name: "Apr", users: 0 },
+      { name: "May", users: 0 },
+      { name: "Jun", users: 0 },
+      { name: "Jul", users: 0 },
+      { name: "Aug", users: 0 },
+      { name: "Sep", users: 0 },
+      { name: "Oct", users: 0 },
+      { name: "Nov", users: 0 },
+      { name: "Dec", users: 0 },
+    ];
+
+    users.forEach(user => {
+      const createdMonth = new Date(user.createdAt).getUTCMonth();
+      months[createdMonth].users += 1;
+    });
+
+    setBarChartData(months);
+  }
+
+  useEffect(() => {
+    // Hacemos la petición al cargar el componente
+    axios.get('/api/user')
+      .then(response => {
+        setUsers(response.data);
+        countUsersByMonth(response.data);  // Llama a la función después de obtener los usuarios
+      })
+      .catch(error => {
+        console.error("Error fetching users:", error)
+      })
+  }, []); // Elimina handleDelete de las dependencias
 
   const totalUsers = users.length
-  const premiumUsers = users.filter(user => user.status === "Premium").length
-  const basicUsers = users.filter(user => user.status === "Basic").length
-
-  const barChartData = [
-    { name: "Jan", users: 500 },
-    { name: "Feb", users: 300 },
-    { name: "Mar", users: 500 },
-    { name: "Apr", users: 280 },
-    { name: "May", users: 590 },
-  ]
+  const premiumUsers = users.filter(user => user.premium === true).length
+  const basicUsers = users.filter(user => user.premium === false).length
 
   const pieChartData = [
     { name: "Premium", value: premiumUsers },
     { name: "Basic", value: basicUsers },
   ]
 
-  const PASTEL_COLORS = ['Grey', 'green'] // Pastel blue and pastel black (gray)
+  const PASTEL_COLORS = ['Grey', 'green']
 
-  const handleDelete = (id: number) => {
-    setUsers(users.filter(user => user.id !== id))
-  }
 
-  const handleToggleStatus = (id: number) => {
-    setUsers(users.map(user => 
-      user.id === id 
-        ? { ...user, status: user.status === "Premium" ? "Basic" : "Premium" }
-        : user
-    ))
-  }
-
- 
   return (
     <div className="container mx-auto p-4">
-      <Header/>
+      <Header />
       <h1 className="text-2xl font-bold mb-4">Panel Administrativo</h1>
-      
       <div className="grid gap-4 md:grid-cols-3 mb-8">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -101,7 +156,7 @@ export default function Component() {
           </CardContent>
         </Card>
       </div>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
         <div className="bg-card text-card-foreground rounded-lg shadow-sm">
           <h2 className="text-lg font-semibold p-4">Usuarios por Mes</h2>
@@ -109,11 +164,11 @@ export default function Component() {
             <BarChart data={barChartData}>
               <XAxis dataKey="name" />
               <YAxis />
-              <Bar dataKey="users" fill="grey" /> {/* Pastel blue */}
+              <Bar dataKey="users" fill="grey" />
             </BarChart>
           </ResponsiveContainer>
         </div>
-        
+
         <div className="bg-card text-card-foreground rounded-lg shadow-sm">
           <h2 className="text-lg font-semibold p-4">Distribución de Membresías</h2>
           <ResponsiveContainer width="100%" height={300}>
@@ -135,7 +190,6 @@ export default function Component() {
           </ResponsiveContainer>
         </div>
       </div>
-      
       <div className="bg-card text-card-foreground rounded-lg shadow-sm">
         <Table>
           <TableHeader>
@@ -148,17 +202,17 @@ export default function Component() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {users.map((user) => (
+            {users.map((user, index) => (
               <TableRow key={user.id}>
-                <TableCell className="font-medium">{user.id}</TableCell>
-                <TableCell>{user.name}</TableCell>
+                <TableCell className="font-medium">{index + 1}</TableCell>
+                <TableCell>{user.firstName}</TableCell>
                 <TableCell>{user.email}</TableCell>
                 <TableCell>
-                  <Badge 
-                    variant={user.status === "Premium" ? "default" : "secondary"}
-                    className={`${user.status === "Premium" ? "bg-[#D6E0F0] text-[#2C3E50]" : "bg-[#E0E0E0] text-[#333333]"}`}
+                  <Badge
+                    variant={user.premium === true ? "default" : "secondary"}
+                    className={`${user.premium === false ? "bg-[#D6E0F0] text-[#2C3E50]" : "bg-[#E0E0E0] text-[#333333]"}`}
                   >
-                    {user.status}
+                    {user.premium === true ? 'Premium' : 'Basic'}
                   </Badge>
                 </TableCell>
                 <TableCell className="text-right">
@@ -171,14 +225,17 @@ export default function Component() {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                       <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-                      <DropdownMenuItem onClick={() => handleToggleStatus(user.id)}>
-                        <ArrowUpDown className="mr-2 h-4 w-4" />
-                        <span>Cambiar Membresía</span>
+                      <DropdownMenuItem
+                        onClick={() => handleToggleStatus(user.id)}
+                      >
+                        Cambiar Membresía
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem onClick={() => handleDelete(user.id)}>
-                        <UserMinus className="mr-2 h-4 w-4" />
-                        <span>Eliminar Usuario</span>
+                      <DropdownMenuItem
+                        onClick={() => handleDelete(user.id)}
+                        className="text-red-500"
+                      >
+                        Eliminar Usuario
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
@@ -189,5 +246,5 @@ export default function Component() {
         </Table>
       </div>
     </div>
-  )
+  );
 }

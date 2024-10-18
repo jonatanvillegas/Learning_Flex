@@ -2,7 +2,6 @@
 
 import { chatSession } from '@/lib/IA';
 import { NextRequest, NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
 import { Curso } from '@/types';
 import { auth } from '@clerk/nextjs/server';
 import { v4 as uuidv4 } from 'uuid'
