@@ -10,9 +10,9 @@ const sidebarItems:SidebarItem[] = [
   },
   {
     id: 2,
-    nombre: 'Perfil',
+    nombre: 'Foro',
     icon: FaUser,
-    path: '/dashboard/explore',
+    path: '/dashboard/foro',
   },
   {
     id: 3,
