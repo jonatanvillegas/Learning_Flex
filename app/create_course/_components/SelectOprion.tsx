@@ -35,7 +35,7 @@ function SelectOprion() {
                     </Select>
                 </div>
                 <div>
-                    <label htmlFor="">Duracion del Curso</label>
+                    <label htmlFor="">Duracion:</label>
                     <Select onValueChange={(value)=> handlerInputChange("Duracion",value)}
                         defaultValue={userCourseInput?.Duracion}
                         >

@@ -1,5 +1,3 @@
-// app/__tests__/MobileCompatibility.test.tsx
-
 import { render } from '@testing-library/react';
 import React from 'react';
 

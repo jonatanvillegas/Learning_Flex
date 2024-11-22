@@ -15,7 +15,7 @@ const AddCoruse = () => {
             {user?.fullName}
           </span>
         </h2>
-        <p>Diseña tu proximo curso con la potencia de la <span className='text-primary'>IA</span> a tu lado</p>
+        <p>Diseña tu proximo camino con la potencia de la <span className='text-primary'>IA</span> a tu lado</p>
       </div>
       <Link href="/create_course" >
         <Button className='dark:text-white'>+  Crear con IA</Button>

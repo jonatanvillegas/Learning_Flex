@@ -100,16 +100,16 @@ export default function Component() {
   }
 
   useEffect(() => {
-    // Hacemos la petición al cargar el componente
+    // petición al cargar el componente
     axios.get('/api/user')
       .then(response => {
         setUsers(response.data);
-        countUsersByMonth(response.data);  // Llama a la función después de obtener los usuarios
+        countUsersByMonth(response.data);  
       })
       .catch(error => {
         console.error("Error fetching users:", error)
       })
-  }, []); // Elimina handleDelete de las dependencias
+  }, []); 
 
   const totalUsers = users.length
   const premiumUsers = users.filter(user => user.premium === true).length

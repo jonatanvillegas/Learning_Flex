@@ -7,6 +7,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import QuizGenerator from './_components/QuizGenerator';
 import { BookOpen, FileDown, Info } from 'lucide-react';
+import { jsPDF } from 'jspdf';
 
 export interface Chapter {
   id: number;
@@ -37,53 +38,79 @@ export interface CourseIA {
 const CoursePage = () => {
   const [courseData, setCourseData] = useState<Partial<CourseIA> | null>(null);
   const params: Params = useParams();
-  const { Course, setCourse } = useViewCurso();  // Obtenemos la función para guardar en Zustand
+  const { Course, setCourse } = useViewCurso();  
+  const [activo,setActivo]= useState(false)
+  const [descargaA,setdescargaA]= useState(false)
 
-  const [currentChapter, setCurrentChapter] = useState("Introducción al Curso")
-  const [youtubeVideoId, setYoutubeVideoId] = useState("dQw4w9WgXcQ");  // Estado para el video ID
+  const [currentChapter, setCurrentChapter] = useState("")
+  const [youtubeVideoId, setYoutubeVideoId] = useState("");  // Estado para el video ID
   const [courseInfo, setCourseInfo] = useState("");
 
-  const generateCourseInfo = () => {
-    setCourseInfo(`Información relevante para el capítulo "${currentChapter}":
+  const generateCourseInfo = async () => {
+    try {
+      // const respuesta = await fetch('/api/getinfo', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({currentChapter}),
+      // });
+      // console.log(respuesta.json())
+    const respuesta = await axios.post("/api/getinfo",{currentChapter})
+    setCourseInfo(respuesta.data.info)
+    setActivo(true)
+    console.log(respuesta.data.info)
+    } catch (error) {
 
-Este capítulo cubre los conceptos fundamentales necesarios para comprender el resto del curso. Se abordan temas clave como:
-
-1. Introducción a los principios básicos
-2. Metodologías y enfoques principales
-3. Herramientas y tecnologías utilizadas en el campo
-4. Casos de estudio y ejemplos prácticos
-5. Desafíos comunes y cómo superarlos
-
-Se recomienda tomar notas detalladas, participar activamente en las discusiones y completar todos los ejercicios propuestos para maximizar el aprendizaje. Este capítulo sienta las bases para el contenido más avanzado que se cubrirá en las secciones posteriores del curso.`)
+    }
   }
 
   useEffect(() => {
-   // Si ya tenemos el curso guardado en Zustand, no hacemos la solicitud
-   if (Course.id === Number(params.courseid)) {
-    setCourseData(Course);  // Utilizamos el curso guardado en Zustand
-  } else if (params.courseid) {
-    const fetchCourseData = async () => {
-      try {
-        const { data } = await axios.get(`/api/cursos/${params.courseid}`);
-        setCourseData(data);  // Almacenamos en el estado local
-        setCourse(data);  // Guardamos en Zustand
-      } catch (error) {
-        console.error('Error fetching course data:', error);
-      }
-    };
+    // Si ya tenemos el curso guardado en Zustand, no hacemos la solicitud
+    if (Course.id === Number(params.courseid)) {
+      setCourseData(Course);  // Utilizamos el curso guardado en Zustand
+    } else if (params.courseid) {
+      const fetchCourseData = async () => {
+        try {
+          const { data } = await axios.get(`/api/cursos/${params.courseid}`);
+          setCourseData(data);  // Almacenamos en el estado local
+          setCourse(data);  // Guardamos en Zustand
+        } catch (error) {
+          console.error('Error fetching course data:', error);
+        }
+      };
 
       fetchCourseData();
     }
   }, [params.courseid, setCourse]);  // Añadimos `setCourse` a las dependencias
 
   const downloadChapter = () => {
-    alert(`Descargando capítulo: ${currentChapter}`)
-    // Aquí iría la lógica real para descargar el capítulo
-  }
+    setdescargaA(true)
+    alert(`Descargando capítulo: ${currentChapter}`);
+    const doc = new jsPDF();
+  
+    // Dividir el texto en líneas para que no se desborde
+    const margin = 10;
+    const pageWidth = doc.internal.pageSize.width;
+    const text = courseInfo; // Este es el texto a poner en el PDF
+  
+    // Ajustar el texto a un ancho de página específico
+    const maxLineWidth = pageWidth - 2 * margin; // Dejamos margen en ambos lados
+    const lines = doc.splitTextToSize(text, maxLineWidth);
+  
+    // Agregar las líneas al PDF
+    doc.text(lines, margin, margin);
+  
+    // Guardar el PDF
+    doc.save('texto_documento.pdf');
+  };
 
   // Función para cambiar de capítulo y actualizar el video
   const handleChapterChange = (chapter: Chapter) => {
-    setCurrentChapter(chapter.name);
+    setActivo(false)
+    setCourseInfo("")
+    setdescargaA(false)
+    setCurrentChapter(chapter?.name);
     setYoutubeVideoId(chapter.videoId);  // Actualizamos el videoId cuando se selecciona un capítulo
   }
 
@@ -127,18 +154,18 @@ Se recomienda tomar notas detalladas, participar activamente en las discusiones 
         </div>
         <h1 className="text-3xl font-bold mb-6">{currentChapter}</h1>
         <div className="flex justify-between items-center mb-6">
-          <Button onClick={generateCourseInfo} className="flex items-center text-lg py-2 px-4">
+          <Button onClick={generateCourseInfo} className="flex items-center text-lg py-2 px-4" disabled={activo}>
             <Info className="mr-2 h-5 w-5" />
             Generar Información textual
           </Button>
-          <Button onClick={downloadChapter} className="flex items-center text-lg py-2 px-4">
+          <Button onClick={downloadChapter} className="flex items-center text-lg py-2 px-4" disabled={descargaA}>
             <FileDown className="mr-2 h-5 w-5" />
             Descargar Informacion
           </Button>
         </div>
         {courseInfo && (
           <Card className="p-6 mb-6">
-            <h2 className="text-2xl font-semibold mb-4">Información del Curso</h2>
+            <h2 className="text-2xl font-semibold mb-4">Mas Informacion</h2>
             <p className="text-lg leading-relaxed whitespace-pre-line">{courseInfo}</p>
           </Card>
         )}

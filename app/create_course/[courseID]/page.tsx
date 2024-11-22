@@ -39,7 +39,7 @@ const Page = () => {
       {course ? (
         <div className='mt-10 px-7 md:px-20 lg:px-44'>
           <h2 className='font-bold text-center text-2xl'>
-            Estructura del curso
+            Estructura 
           </h2>
           {/* Información del curso */}
           <InformationBasic course={course} userId={userId}/>

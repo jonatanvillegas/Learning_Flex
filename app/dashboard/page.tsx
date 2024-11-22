@@ -5,18 +5,18 @@ import AddCoruse from './_components/AddCoruse'
 import CourseList from './_components/CourseList'
 
 function Dashboard() {
-  const { user } = useUser();
+const { user } = useUser();
 
-  console.log(user?.id)
-  if (user?.id == undefined) {
-    return 
-  }
-  return (
-    <div>
-      <AddCoruse />
-      <CourseList userId={user?.id}/>
-    </div>
-  )
+console.log(user?.id)
+if (user?.id == undefined) {
+  return 
+}
+return (
+  <div> 
+    <AddCoruse />
+    <CourseList userId={user?.id}/>
+  </div>
+)
 }
 
 export default Dashboard

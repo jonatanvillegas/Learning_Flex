@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma'; // Asegúrate de que el path es correcto y prisma está configurado
+import prisma from '@/lib/prisma'; 
 import { clerkClient } from '@clerk/nextjs/server';
 
-// Manejar la solicitud GET
+
 export async function GET(req: Request) {
   try {
     console.time('get-users-query');

@@ -92,5 +92,45 @@ export type YouTubeResponse = {
   items: Video[];
 };
 
+type Price = {
+  active: boolean;
+  billing_scheme: string;
+  created: number;
+  currency: string;
+  custom_unit_amount: number | null;
+  id: string;
+  livemode: boolean;
+  lookup_key: string | null;
+  metadata: Record<string, unknown>;
+  nickname: string | null;
+  object: string;
+  product: string;
+  recurring: {
+      aggregate_usage: string | null;
+      interval: 'day' | 'week' | 'month' | 'year';
+      interval_count: number;
+      meter: string | null;
+      trial_period_days: number | null;
+      usage_type: string;
+  } | null;
+  tax_behavior: string;
+  tiers_mode: string | null;
+  transform_quantity: unknown | null;
+  type: string;
+  unit_amount: number;
+  unit_amount_decimal: string;
+};
+type User = {
+  id: string;
+  email: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  imageUrl?: string | null;
+  creditos: number;
+  premium: boolean;
+  clerkUserId: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
 
-export type{ SidebarItem, ItemCreate,ItemCategory,Curso,CourseIA,coursePrueba,Capitulo};
+export type{ SidebarItem, ItemCreate,ItemCategory,Curso,CourseIA,coursePrueba,Capitulo,Price,User};
