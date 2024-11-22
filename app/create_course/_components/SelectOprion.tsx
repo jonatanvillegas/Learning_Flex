@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Select,
     SelectContent,
@@ -8,6 +8,10 @@ import {
 } from "@/components/ui/select"
 import { Input } from '@/components/ui/input'
 import { useUserInput } from '@/app/_store/Zustand';
+import { User } from '@prisma/client';
+import axios from 'axios';
+import { useUser } from '@clerk/nextjs';
+import { auth } from '@clerk/nextjs/server';
 
 
 function SelectOprion() {
@@ -16,6 +20,24 @@ function SelectOprion() {
     const handlerInputChange = (name:string,value:string) => {
       setUserCourseInput(name,value)
     }
+
+    const [userAuth, setUserAuth] = useState<User | null>(null);
+    const { user } = useUser();
+
+    useEffect(() => {
+      const fetchUser = async () => {
+        try {
+          const { data } = await axios.get<User>(`/api/userAuth?id=${user?.id}`);
+          setUserAuth(data);
+        } catch (err) {
+          console.error(err);
+        }
+      };
+  
+      if (user?.id) {
+        fetchUser();
+      }
+    }, [user?.id]);
     return (
         <div className='px-10 md:px-20 lg:px-44'>
             <div className='grid grid-cols-1 md:grid-cols-2  gap-10'>
@@ -68,6 +90,7 @@ function SelectOprion() {
                     <Input type='number' className='h-14 text-lg' 
                     onChange={(e)=>handlerInputChange("numCapitulos", e.target.value)}
                     defaultValue={userCourseInput?.numCapitulos}
+                    max={userAuth?.premium && userAuth.premium ? 10 : 5}
                     />
                 </div>
             </div>

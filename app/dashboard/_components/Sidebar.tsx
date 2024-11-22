@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Progress } from '@/components/ui/progress';
 import axios from 'axios';
-import { useUser } from '@clerk/nextjs';
+import { SignOutButton, useUser } from '@clerk/nextjs';
 import { User } from '@prisma/client';
 import SimpleSubscriptionCard from './CardPrices';
 import { Price } from '@/types';
@@ -79,7 +79,17 @@ const Sidebar = () => {
                             <span>{item.nombre}</span>
                         </div>
                     </Link>
+
                 ))}
+                <div
+                    className={`flex items-center gap-4 py-3 cursor-pointer hover:bg-slate-100 p-3 rounded-md `}
+                >
+                        <FaSignOutAlt />
+                    <SignOutButton>
+                        <span>Cerrar cesion</span>
+                    </SignOutButton>
+                </div>
+
             </ul>
 
             <div className="absolute bottom-10 w-[80%]">
@@ -87,9 +97,9 @@ const Sidebar = () => {
                     <>
                         <Progress value={(userAuth.creditos / 5) * 100} />
                         <h2 className="text-gray-500 text-lg font-bold py-2">
-                            {userAuth.creditos} de 5 cursos creados
+                            {userAuth.creditos} de 5 creados
                         </h2>
-                        <h3 className="text-xs">Crea más cursos que marquen la diferencia</h3>
+                        <h3 className="text-xs">Crea más rutas que marquen la diferencia</h3>
                     </>
                 ) : (
 

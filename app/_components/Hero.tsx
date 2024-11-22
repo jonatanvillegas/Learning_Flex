@@ -85,7 +85,7 @@ function Hero() {
                         </h1>
 
                         <p className="mt-4 sm:text-xl/relaxed">
-                            Solo Imagina el titulo, has clic y desbloquea el curso que cambiara tuvida al 100%
+                            Solo Imagina el titulo, has clic y desbloquea la ruta que cambiara tuvida al 100%
                         </p>
 
                         <div className="mt-8 flex flex-wrap justify-center gap-4">

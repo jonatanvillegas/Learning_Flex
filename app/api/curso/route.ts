@@ -36,6 +36,21 @@ export async function POST(request: NextRequest) {
     if (userId === undefined) {
       throw new Error("userId es requerido y debe ser un string.");
     }
+
+    const dataUsuario = await prisma.user.findUnique({
+      where: {
+        id: userId, // Supone que el campo clerkId existe en la tabla de usuario
+      },
+    });
+
+    if (dataUsuario?.creditos && dataUsuario.creditos > 0) {
+      const updatedUser = await prisma.user.update({
+        where: { id: userId }, // Asegúrate de que "id" coincida con el campo correcto en tu tabla
+        data: {
+          creditos: dataUsuario.creditos - 1, // Resta 1 crédito
+        },
+      });
+    }
     // Guardar el curso en la base de datos
     const nuevoCurso = await prisma.course.create({
       data: {

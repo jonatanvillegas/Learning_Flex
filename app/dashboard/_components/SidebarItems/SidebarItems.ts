@@ -20,12 +20,6 @@ const sidebarItems:SidebarItem[] = [
     icon: FaBookmark ,
     path: '/dashboard/guardado',
   },
-  {
-    id: 4,
-    nombre: 'Deslogueo',
-    icon: FaSignOutAlt,
-    path: '/logout',
-  },
 ];
 
 export default sidebarItems;
