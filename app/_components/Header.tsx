@@ -10,7 +10,7 @@ const Header = () => {
 
             <div className='flex items-center gap-5'>
                 <ModeToggle />
-                <Button className='dark:text-white'>Iniciar Secion</Button>
+                <Button className='dark:text-white'>Iniciar Sesión</Button>
             </div>
         </div>
     )

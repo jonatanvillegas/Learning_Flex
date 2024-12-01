@@ -57,7 +57,7 @@ function SelectOprion() {
                     </Select>
                 </div>
                 <div>
-                    <label htmlFor="">Duracion:</label>
+                    <label htmlFor="">Duración:</label>
                     <Select onValueChange={(value)=> handlerInputChange("Duracion",value)}
                         defaultValue={userCourseInput?.Duracion}
                         >
@@ -86,7 +86,7 @@ function SelectOprion() {
                     </Select>
                 </div>
                 <div>
-                    <label htmlFor="" className='text-sm'>N° de Capitulos</label>
+                    <label htmlFor="" className='text-sm'>N° de Capítulos</label>
                     <Input type='number' className='h-14 text-lg' 
                     onChange={(e)=>handlerInputChange("numCapitulos", e.target.value)}
                     defaultValue={userCourseInput?.numCapitulos}

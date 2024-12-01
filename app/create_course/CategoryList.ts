@@ -4,7 +4,7 @@ import { ItemCategory } from "@/types";
 export const ItemsCategory: ItemCategory[] = [
     {
         id: 1,
-        nombre: 'Programacion',
+        nombre: 'Programación',
         icon: '/programacion.svg',
         prompt:''
     },
