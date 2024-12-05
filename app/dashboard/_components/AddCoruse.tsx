@@ -40,14 +40,12 @@ const AddCoruse = () => {
         </Link>
       ) : (
 
-        userAuth?.creditos && userAuth.creditos > 0 ? (
+        userAuth?.creditos  && userAuth.creditos > 0 ? (
           <Link href="/create_course" >
             <Button className='dark:text-white'>+  Crear con IA</Button>
           </Link>
         ) : (
-          <Link href="/create_course" >
-            <Button className='dark:text-white' disabled>+  Crear con IA</Button>
-          </Link>
+          ""
         )
 
       )}
